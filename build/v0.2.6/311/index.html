@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>NYC Hurricane Evacuation Map</title>
+	<link href="css/311.css?v0.2.6" rel="stylesheet" type="text/css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>	
+	<script src="https://maps.nyc.gov/nyc-lib/v0.3.0/src/js/nyc/nyc.js"></script>
+	<script src="https://maps.nyc.gov/nyc-lib/v0.3.0/src/js/nyc/locate.js"></script>
+	<script src="https://maps.nyc.gov/nyc-lib/v0.3.0/src/js/nyc/geocoder.js"></script>
+	<script src="https://maps.nyc.gov/nyc-lib/v0.3.0/src/js/nyc/content.js"></script>
+	<script src="js/messages.js?v0.2.6" type="text/javascript"></script>
+	<script src="js/content.js?v0.2.6" type="text/javascript"></script>
+	<script src="js/nyc.js?v0.2.6" type="text/javascript"></script>
+	<script src="js/app.js?v0.2.6" type="text/javascript"></script>
+	<script>
+		$(document).ready(function(){
+			window.app = new nyc311.App(
+				new nyc.Geoclient('https://maps.nyc.gov/geoclient/v1/search.json?app_key=A159073974562987C&app_id=hurricane-evac', 'EPSG:2263'),
+				new nyc.HurricaneContent(MESSAGES)
+			);
+		});
+	</script>
+</head>
+<body>
+	<div id="banner"><img src="img/nyc.png" alt="NYC Hurricane Evacuation Map" title="NYC Hurricane Evacuation Map" /><div>Hurricane Evacuation</div></div>
+	<div id="order"></div>
+	<div id="search" class="section">
+		<span class="title">Enter an Address: </span>
+		<input id="address" onkeyup="app.doFind(event);" size="100" placeholder=" e.g. 59 Maiden Lane, New York, NY" />
+		<button onclick="app.find();">Submit</button>
+	</div>
+	<div id="possible"></div>
+	<div id="zone" class="section">
+		<div class="title">Evacuation Zone and Status: </div>
+		<div id="evac-msg">&nbsp;</div>
+	</div>
+	<div class="section">
+		<div id="evac-ctr" class="title capitalize"></div>
+		<div id="filter">
+			<input id="filter-all" type="radio" checked name="filter">
+			<label for="filter-all" class="capitalize">all <span class="filter-center"></span></label>
+			<input id="filter-access" type="radio" name="filter">
+			<label for="filter-access" class="capitalize"><img src="img/shelter_fa_16.png"> only accessible <span class="filter-center"></span></label>
+		</div>
+		<div id="shelters">
+			<div id="sheltersList">
+				<table><tbody></tbody></table>
+			</div>
+		</div>
+	</div>	
+	<div id="toTop" onclick="app.toTop();">Back to Top</div>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-41281554-1', 'auto');ga('send', 'pageview');
+	</script>
+</body>
+</html>
